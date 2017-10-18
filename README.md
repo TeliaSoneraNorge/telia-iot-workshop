@@ -3,6 +3,7 @@ Welcome to the Telia IoT Workshop! Today we will try out some cutting-edge IoT t
 
 Learn more about IoT in Telia at https://telia.no/iot and https://telia.io.
 
+
 ## 1. Install software
 <img src=https://static.webshopapp.com/shops/104792/files/136475372/crowduino-m0.jpg width=300px>
 
@@ -57,12 +58,14 @@ The hardware is working, let's make it talk to the Internet! The Telia NB-IoT se
 	As you can see, your brand new counter has the value "--". Let's fix that!
 
 * Download the code in this repository by clicking "Clone or Download" and then "Download ZIP" at the top of this page.
+
 	<img src="img/download.png" width=300px>
 
 * In Arduino, click "Sketch", "Include library", "Add .ZIP library" and coose the file you just downloaded.
-* Open the example by clicking "File", "Examples", "Telia NB-IoT", "counter"
-	<img src="img/example.png" width=400px>
+* Open the example by clicking "File", "Examples", "Telia NB-IoT", "AllThingsTalk_counter"
+	<img src="img/example.png" width=500px>
 * In the code, put in proper values in the four variables at the top.
+
 	<img src="img/code.png" width=500px>
 	
 	Device ID and token can be found in AllThingsTalk. Go to back to your device page and click "Settings" in the top right corner, then "Authentication".
@@ -75,7 +78,7 @@ The hardware is working, let's make it talk to the Internet! The Telia NB-IoT se
 	const String server = "34.240.60.70";
 	const String port = "33333";
 	```
-* Connect the Sodaq NB-IoT shield to the Crowduino. Make sure all the pins align before pressing down.
+* Connect the Sodaq NB-IoT shield to the Crowduino if you have not already. Make sure all the pins align before pressing down.
 * Upload the code to the device, then go to the website to see your data updating!
 
 **Bonus:** Try setting up boolean, number and string assets in AllThingsTalk and see if you can send in other types of data. They all need to have different names, but can be called the same way in the code.
@@ -98,3 +101,25 @@ There are examples for how to use each of these in the examples menu where we fo
 * Upload the code and check out your new weather station of the future!
 
 **Bonus:** Cerate a pinboard in AllThingsTalk and set up a graph or a gauge for you sensor
+
+## 6. Do your thing
+That's it, you are now a certified IoT hardware maker! Go ahead and think of a project you would like to make. You can also add more sensors, lights or switches if you like. Here are some suggestions:
+
+* Weather station - read all the air-related sensors and publish on a dashboard.
+* Movement alarm - read the accelerometer values and send a message if it changes. Bonus: also add a PIR motion sensor.
+* Compass - read the compass in the IMU and make a graph that plots where the device is headed.
+
+General hints:
+* Note that the GPS probably will not work indoors, but you can of course try if you like.
+* Try not to write all the code at once, start simple and check that it works along the way.
+* If you want to connect more things to the Crowduino, note that most pins are already in use by the NB-IoT shield. Available pins are D1, D2, D8-D12 and A0-A3. See the full schematic here:
+	http://support.sodaq.com/wp-content/uploads/2017/02/nb-iot_shield_rev3b_sch-1.pdf
+	
+
+## Sources
+
+To make all the needed libraries available with a single install, this repository contains software for the Sodaq NB-IoT shield borrowed from Sodaq's own examples and a copy of the Sparkfun IMU library. The original repositories can be found here:
+
+https://github.com/janvl1234/Sodaq_NBIoT_examples
+
+https://github.com/sparkfun/SparkFun_LSM303C_6_DOF_IMU_Breakout_Arduino_Library
