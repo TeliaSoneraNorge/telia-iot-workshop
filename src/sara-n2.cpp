@@ -1,9 +1,21 @@
 
 #include "sara-n2.h"
 
-#define DEBUG
+#if defined(ARDUINO_AVR_LEONARDO)
+#define DebugSerial Serial 
+#define SaraSerial Serial1
+
+#elif defined(ARDUINO_ARCH_SAMD)
+#define DebugSerial SerialUSB
+#define SaraSerial Serial5
+
+#else
+#error "Current board is not supported."
+#endif
+
+//#define DEBUG
 #ifdef DEBUG
-#define DEBUG_PRINT Serial.println
+#define DEBUG_PRINT DebugSerial.println
 #else
 #define DEBUG_PRINT
 #endif
@@ -18,7 +30,7 @@ SaraN2::SaraN2(String udpServer, String udpPort) {
 void SaraN2::begin() {
   enableModulePower();
 
-  Serial1.begin(9600);
+  SaraSerial.begin(9600);
 
   int timeout = 5000;
   while (timeout--) {
@@ -47,7 +59,7 @@ void SaraN2::verifyModuleConnection() {
 
 void SaraN2::sendCommand(String command) {
   DEBUG_PRINT("> " + command);
-  Serial1.println(command);
+  SaraSerial.println(command);
 }
 
 void SaraN2::verifyAutoconnect() {
@@ -80,10 +92,10 @@ void SaraN2::waitForResponse(String expectedResponse) {
 }
 
 String SaraN2::readResponse() {
-  if (Serial1.available()) {
+  if (SaraSerial.available()) {
     String response = "";
     do {
-      response = Serial1.readStringUntil('\n');
+      response = SaraSerial.readStringUntil('\n');
       response.trim();
     } while (response == "");
     DEBUG_PRINT("> " + response);
@@ -95,7 +107,7 @@ String SaraN2::readResponse() {
 }
 
 String SaraN2::getNextResponse() {
-  while (!Serial1.available()) {
+  while (!SaraSerial.available()) {
     delay(0);
   }
   return readResponse();
@@ -123,17 +135,17 @@ void SaraN2::openSocket() {
 
 void SaraN2::send(String message) {
 
-  Serial1.print("AT+NSOST=0,");
-  Serial1.print(server);
-  Serial1.print(",");
-  Serial1.print(port);
-  Serial1.print(",");
-  Serial1.print(message.length());
-  Serial1.print(",");
+  SaraSerial.print("AT+NSOST=0,");
+  SaraSerial.print(server);
+  SaraSerial.print(",");
+  SaraSerial.print(port);
+  SaraSerial.print(",");
+  SaraSerial.print(message.length());
+  SaraSerial.print(",");
   for (uint16_t i = 0; i < message.length(); i++) {
-    Serial1.print(message[i], HEX);
+    SaraSerial.print(message[i], HEX);
   }
-  Serial1.println();
+  SaraSerial.println();
   waitForResponse("OK");
 }
 

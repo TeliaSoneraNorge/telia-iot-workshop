@@ -1,13 +1,9 @@
 #include <Arduino.h>
 #include "Sodaq_UBlox_GPS.h"
-#include "Sodaq_nbIOT.h"
 
-#define MySerial        SERIAL_PORT_MONITOR
-#define MODEM_STREAM Serial1
+#define MySerial    SerialUSB
 
 #define ARRAY_DIM(arr)  (sizeof(arr) / sizeof(arr[0]))
-
-Sodaq_nbIOT nbiot;
 
 // List of interval values to be used in loop()
 // to measure how long it takes to get a fix.
@@ -44,30 +40,12 @@ void setup()
         // Wait for USB to connect
     }
 
-    MySerial.begin(57600);
-    MODEM_STREAM.begin(nbiot.getDefaultBaudrate());
-
-    nbiot.init(MODEM_STREAM, 7);
-    nbiot.setDiag(MySerial);
-
-    if (nbiot.connect("oceanconnect.t-mobile.nl", "172.16.14.20", "20416")) {
-        MySerial.println("Connected succesfully!");
-    }
-    else {
-        MySerial.println("Failed to connect!");
-        return;
-    }
+    MySerial.begin(9600);
 
     digitalWrite(13, HIGH);
     pinMode(13, OUTPUT);
-    //digitalWrite(LED_GREEN, HIGH);
-    //pinMode(LED_GREEN, OUTPUT);
-    //digitalWrite(LED_BLUE, HIGH);
-    //pinMode(LED_BLUE, OUTPUT);
 
     do_flash_led(13);
-    //do_flash_led(LED_GREEN);
-    //do_flash_led(LED_BLUE);
 
     MySerial.println("SODAQ NB-IoT SAM-M8Q test is starting ...");
 
@@ -78,7 +56,7 @@ void setup()
     //sodaq_gps.setMinNumOfLines(10);
 
     // Uncomment the next line if you want to see the incoming $GPxxx messages
-    sodaq_gps.setDiag(MySerial);
+    //sodaq_gps.setDiag(MySerial);
 
     // First time finding a fix
     find_fix(0);
@@ -111,15 +89,8 @@ void find_fix(uint32_t delay_until)
         message +=(String(" lat = ") + String(sodaq_gps.getLat(), 7));
         message +=(String(" lon = ") + String(sodaq_gps.getLon(), 7));
         message +=(String(" num sats = ") + String(sodaq_gps.getNumberOfSatellites()));
-
-        if (!nbiot.sendMessage(message)) {
-          MySerial.println("Could not queue message!");
-        }
     } else {
         MySerial.println("No Fix");
-        if (!nbiot.sendMessage("No Fix")) {
-          MySerial.println("Could not queue message!");
-        }
     }
 }
 

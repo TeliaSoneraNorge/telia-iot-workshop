@@ -21,16 +21,16 @@ static const char MERROR[] = "\nMag Error";
 //  D11 -> SCLK
 //  D12 -> CS_XL
 //  D13 -> CS_MAG
-#define CSPORT_MAG PORTB
-#define CSBIT_MAG  5
-#define CSPORT_XL  PORTB
-#define CSBIT_XL   4
-#define CLKPORT    PORTB
-#define CLKBIT     3
-#define DATAPORTI  PINB
-#define DATAPORTO  PORTB
-#define DATABIT    2
-#define DIR_REG    DDRB
+// #define CSPORT_MAG PORTB
+// #define CSBIT_MAG  5
+// #define CSPORT_XL  PORTB
+// #define CSBIT_XL   4
+// #define CLKPORT    PORTB
+// #define CLKBIT     3
+// #define DATAPORTI  PINB
+// #define DATAPORTO  PORTB
+// #define DATABIT    2
+// #define DIR_REG    DDRB
 // End SPI pin definitions
 
 
@@ -62,8 +62,8 @@ class LSM303C : public SparkFunIMU
     InterfaceMode_t interfaceMode = MODE_I2C;  // Set a default...
 
     // Hardware abstraction functions (Pro Mini)
-    uint8_t  SPI_ReadByte(CHIP_t, uint8_t);
-    status_t SPI_WriteByte(CHIP_t, uint8_t, uint8_t);
+    // uint8_t  SPI_ReadByte(CHIP_t, uint8_t);
+    // status_t SPI_WriteByte(CHIP_t, uint8_t, uint8_t);
     uint8_t  I2C_ByteWrite(I2C_ADDR_t, uint8_t, uint8_t);  
     status_t I2C_ByteRead(I2C_ADDR_t, uint8_t, uint8_t&);
 

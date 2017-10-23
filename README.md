@@ -7,34 +7,42 @@ Learn more about IoT in Telia at https://telia.no/iot and https://telia.io.
 ## 1. Install software
 <img src=https://static.webshopapp.com/shops/104792/files/136475372/crowduino-m0.jpg width=300px>
 
-The Crowduino M0 is a circuit board with a microcontroller and is compatible with the Arduino echosystem. To program it, we need some software. Follow this guide to set up your computer: https://www.elecrow.com/wiki/index.php?title=Step1:_Download_Arduino_IDE_and_install_Arduino_driver
+The Crowduino M0 is a circuit board with a microcontroller and is compatible with the Arduino echosystem. To program it, we need some software. 
+
+* Follow this guide to set up your computer: https://www.elecrow.com/wiki/index.php?title=Step1:_Download_Arduino_IDE_and_install_Arduino_driver
+* After installing the Arduino software, open it and go to "Tools", "Board", "Boards Manager". Search for "Arduino M0" and install the *Arduino SAMD Boards* package.
+
+	<img src=img/board.png width=500px>
+
 
 ## 2. Blink an led
 Make sure everything is working by running a simple example. Follow this guide: https://www.elecrow.com/wiki/index.php?title=Step2:_The_very_basic_experiments_with_Crowduino
+(**Note:** select "Arduino M0" in step 3)
 
 You should see the LED on the board blinking.
 
 **Bonus:** try changing the delays and adding in more lines to create other blinking patterns.
 
+
 ## 3. Print a message
-It is sometimes helpful to print out a message to yourself to figure out how the code works. Try out this program and see if you can understand it. Create a new file in the Arduino software and paste it, then press upload (arrow button). After uploading, open the serial monitor (button on the top right).
+It is sometimes helpful to print out a message to yourself to figure out how the code works. Try out this program and see if you can understand it. Create a new file in the Arduino software and paste the code below, then press upload (arrow button). After uploading, open the serial monitor (button on the top right).
 
 ```c
 int messageNumber = 0;
 
 void setup() {
-  Serial.begin(9600);
-  Serial.println("Starting program")
+  SerialUSB.begin(9600);
+  SerialUSB.println("Starting program");
 }
 
 void loop() {
-  Serial.println("This is message number " + String(messageNumber));
+  SerialUSB.println("This is message number " + String(messageNumber));
   messageNumber++;
   delay(1000);
 }
 ```
 
-<img src="img/counter.png" width=600px>
+<img src="img/counter.png" width=500px>
 
 **Bonus:** try adding another line with ```Serial.print("Hi! ");``` and upload again. See the difference between ```print``` and ```println```?
 
@@ -43,7 +51,7 @@ The hardware is working, let's make it talk to the Internet! The Telia NB-IoT se
 
 * Go to https://maker.allthingstalk.com and sign up for an account.
 * Log in and create a new "ground", you can call it anything you like.
-* In your new ground, press "Connect a device" and select "WIFI/LAN devices", then "your own". **Note:** The option "SODAQ NB-IoT shield" in the first tab only works with T-Mobile in the Netherlands for now.
+* In your new ground, press "Connect a device" and select "WIFI/LAN devices", then "your own". **Note:** the option "SODAQ NB-IoT shield" in the first tab only works with T-Mobile in the Netherlands and can not be used.
 
 <img src="img/new_device.png" width=500px>
 
@@ -79,6 +87,8 @@ The hardware is working, let's make it talk to the Internet! The Telia NB-IoT se
 	const String port = "33333";
 	```
 * Connect the Sodaq NB-IoT shield to the Crowduino if you have not already. Make sure all the pins align before pressing down.
+* Attach the antenna to its connector if it is not mounted.
+* Insert the Telia SIM-card if it is not already in place.
 * Upload the code to the device, then go to the website to see your data updating!
 
 **Bonus:** Try setting up boolean, number and string assets in AllThingsTalk and see if you can send in other types of data. They all need to have different names, but can be called the same way in the code.
@@ -118,7 +128,7 @@ General hints:
 
 ## Sources
 
-To make all the needed libraries available with a single install, this repository contains software for the Sodaq NB-IoT shield borrowed from Sodaq's own examples and a copy of the Sparkfun IMU library. The original repositories can be found here:
+To make all the needed libraries available with a single install, this repository contains software for the Sodaq NB-IoT shield borrowed from Sodaq's own examples and a copy of the Sparkfun IMU library. Some modifications have been made to make the examples work on the Crowduino. The original repositories can be found here:
 
 https://github.com/janvl1234/Sodaq_NBIoT_examples
 
