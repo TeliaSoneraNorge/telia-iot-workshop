@@ -44,10 +44,10 @@ void loop() {
 
 <img src="img/counter.png" width=500px>
 
-**Bonus:** try adding another line with ```Serial.print("Hi! ");``` and upload again. See the difference between ```print``` and ```println```?
+**Bonus:** try adding another line with ```SerialUSB.print("Hi! ");``` and upload again. See the difference between ```print``` and ```println```?
 
 ## 4. Get connected
-The hardware is working, let's make it talk to the Internet! The Telia NB-IoT service has been configured to forward all messages to "your" server. For today, we will use an existing IoT platform to play with the data, but it could of course also be sent directly to your own app or website.
+The hardware is working, now let's make it talk to the Internet! The Telia NB-IoT service has been configured to forward all messages to "your" server. For today, we will use an existing IoT platform to play with the data, but it could of course also be sent directly to your own app or website.
 
 * Go to https://maker.allthingstalk.com and sign up for an account.
 * Log in and create a new "ground", you can call it anything you like.
@@ -91,7 +91,7 @@ The hardware is working, let's make it talk to the Internet! The Telia NB-IoT se
 * Insert the Telia SIM-card if it is not already in place.
 * Upload the code to the device, then go to the website to see your data updating!
 
-**Bonus:** Try setting up boolean, number and string assets in AllThingsTalk and see if you can send in other types of data. They all need to have different names, but can be called the same way in the code.
+**Bonus:** Try setting up boolean, number and string assets in AllThingsTalk and see if you can send in other types of data. All assets must have different names, but they can be updated the same way in the code.
 
 ## 5. Read sensors
 
@@ -100,14 +100,15 @@ The Sodaq NB-IoT shield not only has connectivity, it also has several sensors;
 * HTS221 temperature and humidity sensor
 * LPS22HB air pressure sensor
 * LSM303C accelerometer, compass and temperature sensor
-* Ublox GPS
+* Ublox SAM-M8Q GPS
 
-There are examples for how to use each of these in the examples menu where we found the counter example earlier. Let´s read the temperature from the HTS221 and send it to AllThingsTalk.
+There are examples for how to use each of these in the examples menu where we found the counter example earlier. Let´s start by reading the temperature from the HTS221 and send it to AllThingsTalk.
 
-* Open the example code by clicking "File", "Examples", "Telia-AllThingsTalk", "HTS221_example"
-* Insert the device id, token and server information like before.
-* Create a new asset in your device with the name "temperature" and the type "Number"
+* Open the example code by clicking "File", "Examples", "Telia-AllThingsTalk", "HTS221_HumidityTemperature". Upload it and check that you see temperature readings in the serial monitor.
+* Create a new asset in AllThingsTalk with the name "temperature" and the type "Number"
 	<img src="img/temperature.png" width=300px>
+* Copy in the relevant parts of the code from the previous example into the new one. Insert the device id, token and server information like before but use the new asset.
+
 * Upload the code and check out your new weather station of the future!
 
 **Bonus:** Cerate a pinboard in AllThingsTalk and set up a graph or a gauge for you sensor
