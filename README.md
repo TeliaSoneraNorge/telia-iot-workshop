@@ -15,11 +15,13 @@ The Crowduino M0 is a circuit board with a microcontroller and is compatible wit
 	<img src=img/board.png width=500px>
 
 
-## 2. Blink an led
+## 2. Blink a light
 Make sure everything is working by running a simple example. Follow this guide: https://www.elecrow.com/wiki/index.php?title=Step2:_The_very_basic_experiments_with_Crowduino
 (**Note:** select "Arduino M0" in step 3)
 
-You should see the LED on the board blinking.
+You should now see a LED on the board blinking.
+
+If uploading the code fails, try pushing the reset button on the side of the board right after clicking the upload button.
 
 **Bonus:** try changing the delays and adding in more lines to create other blinking patterns.
 
@@ -50,10 +52,9 @@ void loop() {
 The hardware is working, now let's make it talk to the Internet! The Telia NB-IoT service has been configured to forward all messages to "your" server. For today, we will use an existing IoT platform to play with the data, but it could of course also be sent directly to your own app or website.
 
 * Go to https://maker.allthingstalk.com and sign up for an account.
-* Log in and create a new "ground", you can call it anything you like.
-* In your new ground, press "Connect a device" and select "WIFI/LAN devices", then "your own". **Note:** the option "SODAQ NB-IoT shield" in the first tab only works with T-Mobile in the Netherlands and can not be used.
+* Log in, press "Connect a device" and select "WIFI/LAN devices", then "your own". **Note:** the option "SODAQ NB-IoT shield" in the first tab only works with T-Mobile in the Netherlands and can not be used.
 
-<img src="img/new_device.png" width=500px>
+	<img src="img/new_device.png" width=500px>
 
 * Each device can have many different sensors, or "assets". Add a new asset to your device by clicking "Create asset". Call the asset "counter" (important!) and set the type to "Integer".
 
@@ -89,7 +90,7 @@ The hardware is working, now let's make it talk to the Internet! The Telia NB-Io
 * Connect the Sodaq NB-IoT shield to the Crowduino if you have not already. Make sure all the pins align before pressing down.
 * Attach the antenna to its connector if it is not mounted.
 * Insert the Telia SIM-card if it is not already in place.
-* Upload the code to the device, then go to the website to see your data updating!
+* Upload the code to the device, then go to the website to see your data updating! **Note:** it may take up to a minute before the data appears the first time. You can check the status in the serial monitor.
 
 **Bonus:** Try setting up boolean, number and string assets in AllThingsTalk and see if you can send in other types of data. All assets must have different names, but they can be updated the same way in the code.
 
