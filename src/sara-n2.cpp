@@ -2,11 +2,11 @@
 #include "sara-n2.h"
 
 #if defined(ARDUINO_AVR_LEONARDO)
-#define DebugSerial Serial 
+#define LogSerial Serial 
 #define SaraSerial Serial1
 
 #elif defined(ARDUINO_ARCH_SAMD)
-#define DebugSerial SerialUSB
+#define LogSerial SerialUSB
 #define SaraSerial Serial5
 
 #else
@@ -15,7 +15,7 @@
 
 //#define DEBUG
 #ifdef DEBUG
-#define DEBUG_PRINT DebugSerial.println
+#define DEBUG_PRINT LogSerial.println
 #else
 #define DEBUG_PRINT
 #endif
@@ -28,6 +28,8 @@ SaraN2::SaraN2(String udpServer, String udpPort) {
 }
 
 void SaraN2::begin() {
+  LogSerial.print("Starting NB-IoT chip");
+  
   enableModulePower();
 
   SaraSerial.begin(9600);
@@ -39,11 +41,13 @@ void SaraN2::begin() {
       }
       delay(1);
   }
-
+  LogSerial.println("  [OK]");
   verifyModuleConnection();
   verifyAutoconnect();
+  LogSerial.print("Waiting for network connection");
   waitForNetworkConnection();
   openSocket();
+  LogSerial.println("  [OK]");
 }
 
 void SaraN2::enableModulePower() {
