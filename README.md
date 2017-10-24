@@ -5,9 +5,9 @@ Learn more about IoT in Telia at https://telia.no/iot and https://telia.io.
 
 
 ## 1. Install software
-<img src=https://static.webshopapp.com/shops/104792/files/136475372/crowduino-m0.jpg width=300px>
+<img src=img/crowduino.jpg width=400px>
 
-The Crowduino M0 is a circuit board with a microcontroller and is compatible with the Arduino echosystem. To program it, we need some software. 
+The Crowduino M0 is a circuit board with a microcontroller and is compatible with [the Arduino echosystem](https://www.arduino.cc/en/Guide/Introduction). To program it, we need some software. 
 
 * Follow this guide to set up your computer: https://www.elecrow.com/wiki/index.php?title=Step1:_Download_Arduino_IDE_and_install_Arduino_driver
 * After installing the Arduino software, open it and go to "Tools", "Board", "Boards Manager". Search for "Arduino M0" and install the *Arduino SAMD Boards* package.
