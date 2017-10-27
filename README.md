@@ -77,7 +77,7 @@ The hardware is working, now let's make it talk to the Internet! The Telia NB-Io
 
 	<img src="img/code.png" width=500px>
 	
-	Device ID and token can be found in AllThingsTalk. Go to back to your device page and click "Settings" in the top right corner, then "Authentication".
+	Device ID and token can be found in AllThingsTalk. Go back to your device page and click "Settings" in the top right corner, then "Authentication".
 	
 	<img src="img/authentication.png" width=700px>
 	
