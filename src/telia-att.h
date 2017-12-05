@@ -20,6 +20,7 @@ class TeliaATT {
     void send(String asset, double value);
     void send(String asset, bool value);
     void send(String asset, String value);
+    void sendObject(String asset, String value);
 };
 
 #endif

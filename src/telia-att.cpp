@@ -40,6 +40,10 @@ void TeliaATT::send(String asset, String value) {
   sendAssetPayload(asset, String("\"" + value + "\""));
 }
 
+void TeliaATT::sendObject(String asset, String value) {
+  sendAssetPayload(asset, value);
+}
+
 void TeliaATT::sendAssetPayload(String asset, String value) {
   String payload;
   payload += "{\"deviceId\":\"" + deviceId + "\",";

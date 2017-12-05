@@ -2,7 +2,7 @@
 #include "sara-n2.h"
 
 #if defined(ARDUINO_AVR_LEONARDO)
-#define LogSerial Serial 
+#define LogSerial Serial
 #define SaraSerial Serial1
 
 #elif defined(ARDUINO_ARCH_SAMD)
@@ -29,7 +29,7 @@ SaraN2::SaraN2(String udpServer, String udpPort) {
 
 void SaraN2::begin() {
   LogSerial.print("Starting NB-IoT chip");
-  
+
   enableModulePower();
 
   SaraSerial.begin(9600);
@@ -72,13 +72,13 @@ void SaraN2::verifyAutoconnect() {
   bool autoconnect = false;
   do {
     response = getNextResponse();
-    if (stringContains(response, "AUTOCONNECT,TRUE")) {
+    if (stringContains(response, "\"AUTOCONNECT\",\"TRUE\"")) {
       autoconnect = true;
     }
   } while (response != "OK");
 
   if (autoconnect == false) {
-    sendCommand("AT+NCONFIG=AUTOCONNECT,TRUE");
+    sendCommand("AT+NCONFIG=\"AUTOCONNECT\",\"TRUE\"");
     waitForResponse("OK");
     resetModule();
   }
@@ -124,32 +124,32 @@ void SaraN2::waitForNetworkConnection() {
   sendCommand("AT+CEREG?");
   String cereg = getNextResponse();
   waitForResponse("OK");
-  if (stringContains(cereg, "+CEREG:1,1")) {
+  if (stringContains(cereg, "+CEREG: 1,1")) {
     return;
   }
-  waitForResponse("+CEREG:1");
+  waitForResponse("+CEREG: 1");
 }
 
 void SaraN2::openSocket() {
   sendCommand("AT+NSOCL=0");
   getNextResponse();
-  sendCommand("AT+NSOCR=DGRAM,17,12345,1");
+  sendCommand("AT+NSOCR=\"DGRAM\",17,12345,1");
   waitForResponse("OK");
 }
 
 void SaraN2::send(String message) {
 
-  SaraSerial.print("AT+NSOST=0,");
+  SaraSerial.print("AT+NSOST=0,\"");
   SaraSerial.print(server);
-  SaraSerial.print(",");
+  SaraSerial.print("\",");
   SaraSerial.print(port);
   SaraSerial.print(",");
   SaraSerial.print(message.length());
-  SaraSerial.print(",");
+  SaraSerial.print(",\"");
   for (uint16_t i = 0; i < message.length(); i++) {
     SaraSerial.print(message[i], HEX);
   }
-  SaraSerial.println();
+  SaraSerial.println("\"");
   waitForResponse("OK");
 }
 
