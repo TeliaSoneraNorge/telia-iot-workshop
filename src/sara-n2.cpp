@@ -41,6 +41,7 @@ void SaraN2::begin() {
       }
       delay(1);
   }
+  resetModule();
   LogSerial.println("  [OK]");
   verifyModuleConnection();
   verifyAutoconnect();
