@@ -125,10 +125,17 @@ void SaraN2::waitForNetworkConnection() {
   sendCommand("AT+CEREG?");
   String cereg = getNextResponse();
   waitForResponse("OK");
-  if (stringContains(cereg, "+CEREG: 1,1")) {
+  if (stringContains(cereg, "+CEREG: 1,1") ||
+      stringContains(cereg, "+CEREG: 1,5")) {
     return;
   }
-  waitForResponse("+CEREG: 1");
+  
+  cereg = getNextResponse();
+  while(!stringContains(cereg, "+CEREG: 1") &&
+        !stringContains(cereg, "+CEREG: 5")) {
+    cereg = getNextResponse();
+  }
+
 }
 
 void SaraN2::openSocket() {
